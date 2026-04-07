@@ -46,7 +46,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 .pbtn-count{font-size:0.8rem;color:var(--muted);}
 .av{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;overflow:hidden;flex-shrink:0;}
 .av img{width:100%;height:100%;object-fit:cover;}
-.av-xs{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;overflow:hidden;flex-shrink:0;}
+.av-xs{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;overflow:hidden;flex-shrink:0;}
 .av-xs img{width:100%;height:100%;object-fit:cover;}
 .av-row{display:flex;}.av-row .av-xs+.av-xs{margin-left:-5px;}
 .sync-line{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:var(--muted);margin-top:.5rem;}
@@ -58,7 +58,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 /* ── NAVBAR ── */
 #navbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(8,8,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);display:none;align-items:center;padding:0 2.5rem;z-index:200;gap:0;}
 #navbar.show{display:flex;}
-.nb-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;letter-spacing:-1px;color:var(--text);text-decoration:none;flex-shrink:0;}
+.nb-logo{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;letter-spacing:-1px;color:var(--text);text-decoration:none;flex-shrink:0;}
 .nb-logo em{color:var(--accent2);font-style:normal;}
 .nb-center{display:flex;align-items:center;gap:1px;margin:0 auto;}
 .nb-link{padding:7px 16px;border-radius:6px;font-size:0.875rem;color:var(--muted);cursor:pointer;transition:all .2s;font-weight:400;white-space:nowrap;}
@@ -67,9 +67,9 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 .nb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .nb-icon-btn{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:14px;transition:all .2s;border:1px solid transparent;}
 .nb-icon-btn:hover{color:var(--text);border-color:var(--border);}
-.nb-profile{display:flex;align-items:center;gap:7px;padding:4px 10px 4px 5px;border-radius:8px;cursor:pointer;border:1px solid var(--border);transition:all .2s;}
+.nb-profile{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:8px;cursor:pointer;border:1px solid var(--border);transition:all .2s;}
 .nb-profile:hover{border-color:var(--border2);background:rgba(255,255,255,0.04);}
-.nb-profile-name{font-size:13px;font-weight:500;color:var(--text);}
+.nb-profile-name{font-size:0.85rem;font-weight:500;color:var(--text);}
 .nb-sep{width:1px;height:18px;background:var(--line);margin:0 4px;}
 
 /* ── MAIN ── */
@@ -80,9 +80,9 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 
 /* ── DISCOVER ── */
 #p-discover{align-items:center;justify-content:center;}
-.discover-inner{position:relative;display:flex;align-items:center;justify-content:center;height:100%;}
+.discover-inner{grid-column:2;grid-row:1;display:flex;align-items:center;justify-content:center;}
 .card-col{display:flex;flex-direction:column;align-items:center;gap:1rem;}
-.card-stack{position:relative;width:460px;height:600px;}
+.card-stack{position:relative;width:380px;height:520px;}
 .mcard{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:grab;user-select:none;border:1px solid var(--border2);}
 .mcard.dragging{cursor:grabbing;}
 .mcard.go-r{animation:gR .35s cubic-bezier(.55,.055,.675,.19) forwards;}
@@ -126,7 +126,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 .prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .3s;}
 
 /* Filter sidebar on discover */
-.filter-col{position:absolute;left:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.25rem;width:160px;}
+.filter-col{grid-column:1;grid-row:1;display:flex;flex-direction:column;gap:1rem;padding:2rem 1rem 2rem 2rem;overflow-y:auto;border-right:1px solid var(--line);}
 .fc-label{font-size:0.7rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;}
 .fc-chips{display:flex;flex-direction:column;gap:3px;}
 .fchip{padding:8px 12px;border-radius:6px;font-size:0.875rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;}
@@ -210,9 +210,9 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 
 /* MISC */
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);text-align:center;padding:3rem 1rem;height:100%;}
-.empty-icon{font-size:40px;opacity:.5;}
-.empty-t{font-size:14px;font-weight:500;color:var(--text);}
-.empty-s{font-size:12px;line-height:1.6;}
+.empty-icon{font-size:3rem;opacity:.6;margin-bottom:.5rem;}
+.empty-t{font-size:1.1rem;font-weight:600;color:var(--text);}
+.empty-s{font-size:0.85rem;line-height:1.6;}
 .hint{color:var(--muted);font-size:12px;text-align:center;padding:2.5rem 1rem;line-height:1.7;}
 .spin{text-align:center;padding:2rem;color:var(--muted);font-size:12px;}
 .spin::after{content:'';display:inline-block;width:12px;height:12px;border:1.5px solid rgba(255,255,255,.1);border-top-color:var(--accent2);border-radius:50%;animation:sp .7s linear infinite;margin-left:6px;vertical-align:middle;}
@@ -291,8 +291,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 <div id="main">
   <!-- DISCOVER -->
   <div id="p-discover" class="panel active">
-    <div class="discover-inner">
-      <div class="filter-col">
+    <div class="filter-col">
         <div>
           <div class="fc-label">Type</div>
           <div class="fc-chips">
