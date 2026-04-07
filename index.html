@@ -16,7 +16,7 @@
   --green:#00c896;--red:#e05555;--amber:#f0a030;
   --line:rgba(255,255,255,0.07);
 }
-html{font-size:16px;}body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;}
+html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;}
 
 /* ── FULLSCREEN OVERLAYS ── */
 .fs{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:1000;}
@@ -80,8 +80,8 @@ html{font-size:16px;}body{height:100%;background:var(--bg);color:var(--text);fon
 
 /* ── DISCOVER ── */
 #p-discover{align-items:center;justify-content:center;}
-.discover-inner{display:grid;grid-template-columns:150px 1fr 150px;align-items:center;height:100%;padding:0;}
-.card-col{display:flex;flex-direction:column;align-items:center;gap:1rem;justify-self:center;}
+.discover-inner{position:relative;display:flex;align-items:center;justify-content:center;height:100%;}
+.card-col{display:flex;flex-direction:column;align-items:center;gap:1rem;}
 .card-stack{position:relative;width:460px;height:600px;}
 .mcard{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:grab;user-select:none;border:1px solid var(--border2);}
 .mcard.dragging{cursor:grabbing;}
@@ -126,7 +126,7 @@ html{font-size:16px;}body{height:100%;background:var(--bg);color:var(--text);fon
 .prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .3s;}
 
 /* Filter sidebar on discover */
-.filter-col{display:flex;flex-direction:column;gap:1.5rem;width:150px;padding:1.5rem 0 1.5rem 2.5rem;align-self:flex-start;}
+.filter-col{position:absolute;left:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.25rem;width:160px;}
 .fc-label{font-size:0.7rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;}
 .fc-chips{display:flex;flex-direction:column;gap:3px;}
 .fchip{padding:8px 12px;border-radius:6px;font-size:0.875rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;}
