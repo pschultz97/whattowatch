@@ -80,7 +80,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 
 /* ── DISCOVER ── */
 #p-discover{align-items:center;justify-content:center;}
-.discover-inner{grid-column:2;grid-row:1;display:flex;align-items:center;justify-content:center;}
+.discover-inner{flex:1;display:flex;align-items:center;justify-content:center;}
 .card-col{display:flex;flex-direction:column;align-items:center;gap:1rem;}
 .card-stack{position:relative;width:380px;height:520px;}
 .mcard{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:grab;user-select:none;border:1px solid var(--border2);}
@@ -126,7 +126,7 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
 .prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width .3s;}
 
 /* Filter sidebar on discover */
-.filter-col{grid-column:1;grid-row:1;display:flex;flex-direction:column;gap:1rem;padding:2rem 1rem 2rem 2rem;overflow-y:auto;border-right:1px solid var(--line);}
+.filter-col{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:1.25rem;padding:2rem 1.25rem 2rem 2rem;overflow-y:auto;border-right:1px solid var(--line);}
 .fc-label{font-size:0.7rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;}
 .fc-chips{display:flex;flex-direction:column;gap:3px;}
 .fchip{padding:8px 12px;border-radius:6px;font-size:0.875rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;}
@@ -292,35 +292,36 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
   <!-- DISCOVER -->
   <div id="p-discover" class="panel active">
     <div class="filter-col">
-        <div>
-          <div class="fc-label">Type</div>
-          <div class="fc-chips">
-            <div class="fchip on" onclick="setType(this,'all')">All</div>
-            <div class="fchip" onclick="setType(this,'movie')">🎬 Movies</div>
-            <div class="fchip" onclick="setType(this,'tv')">📺 Series</div>
-          </div>
-        </div>
-        <div>
-          <div class="fc-label">Mood</div>
-          <div class="mood-grid">
-            <div class="mchip" data-mood="funny" onclick="toggleMood(this)"><span class="mchip-icon">😂</span>Funny</div>
-            <div class="mchip" data-mood="thrilling" onclick="toggleMood(this)"><span class="mchip-icon">😱</span>Thrilling</div>
-            <div class="mchip" data-mood="romantic" onclick="toggleMood(this)"><span class="mchip-icon">💕</span>Romantic</div>
-            <div class="mchip" data-mood="mindblow" onclick="toggleMood(this)"><span class="mchip-icon">🤯</span>Mind-blow</div>
-            <div class="mchip" data-mood="scary" onclick="toggleMood(this)"><span class="mchip-icon">👻</span>Scary</div>
-            <div class="mchip" data-mood="chill" onclick="toggleMood(this)"><span class="mchip-icon">😌</span>Chill</div>
-          </div>
-        </div>
-        <div>
-          <div class="fc-label">Year</div>
-          <div class="fc-chips" id="year-chips">
-            <div class="fchip on" onclick="setYear(this,'all')">All years</div>
-            <div class="fchip" onclick="setYear(this,'2026')">2026</div>
-            <div class="fchip" onclick="setYear(this,'2025')">2025</div>
-            <div class="fchip" onclick="setYear(this,'older')">Before 2025</div>
-          </div>
+      <div>
+        <div class="fc-label">Type</div>
+        <div class="fc-chips">
+          <div class="fchip on" onclick="setType(this,'all')">All</div>
+          <div class="fchip" onclick="setType(this,'movie')">🎬 Movies</div>
+          <div class="fchip" onclick="setType(this,'tv')">📺 Series</div>
         </div>
       </div>
+      <div>
+        <div class="fc-label">Mood</div>
+        <div class="mood-grid">
+          <div class="mchip" data-mood="funny" onclick="toggleMood(this)"><span class="mchip-icon">😂</span>Funny</div>
+          <div class="mchip" data-mood="thrilling" onclick="toggleMood(this)"><span class="mchip-icon">😱</span>Thrilling</div>
+          <div class="mchip" data-mood="romantic" onclick="toggleMood(this)"><span class="mchip-icon">💕</span>Romantic</div>
+          <div class="mchip" data-mood="mindblow" onclick="toggleMood(this)"><span class="mchip-icon">🤯</span>Mind-blow</div>
+          <div class="mchip" data-mood="scary" onclick="toggleMood(this)"><span class="mchip-icon">👻</span>Scary</div>
+          <div class="mchip" data-mood="chill" onclick="toggleMood(this)"><span class="mchip-icon">😌</span>Chill</div>
+        </div>
+      </div>
+      <div>
+        <div class="fc-label">Year</div>
+        <div class="fc-chips" id="year-chips">
+          <div class="fchip on" onclick="setYear(this,'all')">All years</div>
+          <div class="fchip" onclick="setYear(this,'2026')">2026</div>
+          <div class="fchip" onclick="setYear(this,'2025')">2025</div>
+          <div class="fchip" onclick="setYear(this,'older')">Before 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="discover-inner">
       <div class="card-col">
         <div class="card-stack" id="card-stack"></div>
         <div class="swipe-controls">
@@ -333,7 +334,6 @@ html{font-size:20px;}body{height:100%;background:var(--bg);color:var(--text);fon
           <span id="prog-txt">0 / 0</span>
         </div>
       </div>
-      <div></div>
     </div>
   </div>
 
