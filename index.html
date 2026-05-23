@@ -98,7 +98,8 @@ button.btn-main:hover{background:#7d6ff0;}
 .mchip.on{color:var(--accent2);background:rgba(108,92,231,0.12);border-color:rgba(108,92,231,0.25);}
 
 /* ── DISCOVER ── */
-.dc{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.875rem;padding:1.5rem;transform:translateX(-120px);}
+.dc-wrapper{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform:translateX(-120px);}
+.dc{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.875rem;}
 .card-stack{position:relative;width:360px;height:670px;flex-shrink:0;}
 .mcard{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:grab;user-select:none;border:1px solid var(--b2);display:flex;flex-direction:column;}
 .mcard.drag{cursor:grabbing;}
@@ -148,7 +149,7 @@ button.btn-main:hover{background:#7d6ff0;}
 
 /* ── WATCHLIST ── */
 #pw{flex-direction:column;overflow:hidden;pointer-events:none;align-items:center;}
-.pw-wrap{flex:1;width:100%;padding:1.75rem 2.5rem 1rem;display:flex;flex-direction:column;overflow:hidden;max-width:900px;pointer-events:auto;}
+.pw-wrap{flex:1;width:100%;padding:1.75rem 3rem 1rem;display:flex;flex-direction:column;overflow:hidden;max-width:100%;pointer-events:auto;}
 .pg-title{font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.3px;margin-bottom:.2rem;}
 .pg-sub{font-size:.78rem;color:var(--muted);margin-bottom:1rem;}
 .wt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
@@ -177,23 +178,56 @@ button.btn-main:hover{background:#7d6ff0;}
 .ia.fav:hover{background:rgba(224,85,85,0.1);}
 
 /* GRID VIEW */
-.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:12px;padding-top:4px;padding-bottom:20px;}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:24px;padding-top:10px;padding-bottom:30px;}
 .wcard{background:var(--bg3);border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--b1);transition:all .2s;}
 .wcard:hover{border-color:var(--b3);transform:translateY(-3px);}
 .wc-img{width:100%;aspect-ratio:2/3;background:#111;display:flex;align-items:center;justify-content:center;font-size:2rem;}
 .wc-img img{width:100%;height:100%;object-fit:cover;}
-.wc-title{font-size:.7rem;font-weight:600;padding:8px 6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.wc-over{position:absolute;inset:0;background:rgba(0,0,0,0.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .2s;padding:10px;}
+.wc-title{font-size:.85rem;font-weight:600;padding:12px 10px;text-align:center;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;}
+.wc-over{position:absolute;inset:0;background:rgba(0,0,0,0.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;transition:opacity .2s;padding:15px;}
 .wcard:hover .wc-over{opacity:1;}
-.wcb{background:rgba(255,255,255,0.1);color:var(--text);border:none;padding:6px 10px;border-radius:6px;font-size:.7rem;cursor:pointer;width:100%;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s;}
+.wcb{background:rgba(255,255,255,0.1);color:var(--text);border:none;padding:8px 12px;border-radius:6px;font-size:.75rem;cursor:pointer;width:100%;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s;}
 .wcb:hover{background:rgba(255,255,255,0.2);}
 .wcb.ok{background:rgba(0,200,150,0.2);color:var(--green);}
 .wcb.ok:hover{background:rgba(0,200,150,0.3);}
 .wcb.rm{background:rgba(224,85,85,0.15);color:var(--red);}
 .wcb.rm:hover{background:rgba(224,85,85,0.25);}
-.g-fav{position:absolute;top:6px;right:6px;font-size:1rem;color:rgba(255,255,255,0.3);cursor:pointer;transition:all .2s;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));}
+.g-fav{position:absolute;top:8px;right:8px;font-size:1.2rem;color:rgba(255,255,255,0.4);cursor:pointer;transition:all .2s;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));}
 .g-fav.on{color:var(--red);}
 .g-fav:hover{transform:scale(1.1);}
+
+/* FANCY MATCH ANIMATION */
+#match-anim {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(8, 8, 15, 0.92);
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(10px);
+}
+#match-anim.on { opacity: 1; }
+.ma-poster-wrap {
+  width: 280px; aspect-ratio: 2/3;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 0 60px rgba(108, 92, 231, 0.5);
+  transform: scale(0.7) translateY(50px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-bottom: 2rem;
+}
+#match-anim.on .ma-poster-wrap {
+  transform: scale(1) translateY(0);
+  box-shadow: 0 0 80px rgba(108, 92, 231, 0.8);
+}
+.ma-poster-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.ma-badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem; font-weight: 800; color: var(--accent2);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 1rem;
+  transform: translateY(-20px); opacity: 0;
+  transition: all 0.5s ease 0.3s;
+}
+#match-anim.on .ma-badge { transform: translateY(0); opacity: 1; }
+.ma-title { font-size: 1.5rem; font-weight: 700; color: #fff; text-align: center; padding: 0 1rem; }
+.ma-sub { font-size: 0.9rem; color: var(--muted); margin-top: 1.5rem; }
 
 /* ── SEARCH ── */
 #ps{flex-direction:column;overflow:hidden;pointer-events:none;align-items:center;}
@@ -264,9 +298,6 @@ button.btn-main:hover{background:#7d6ff0;}
 .avup img{width:100%;height:100%;object-fit:cover;}
 .msave{width:100%;padding:10px;background:var(--accent);border:none;color:white;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:.875rem;}
 .mcancel{width:100%;padding:8px;background:none;border:none;color:var(--muted);font-size:.75rem;cursor:pointer;margin-top:4px;}
-
-/* MATCH MODAL (DISCOVER) */
-#match-mod .mbox {text-align:center; padding: 2.5rem 1.5rem; width: 340px;}
 </style>
 </head>
 <body>
@@ -360,15 +391,17 @@ button.btn-main:hover{background:#7d6ff0;}
 
   <div class="cw">
     <div id="pd" class="panel on">
-      <div class="dc">
-        <div class="card-stack" id="cs"></div>
-        <div class="sc">
-          <div class="scb skip" onclick="doSwipe('left')">✕ Skip</div>
-          <div class="scb watch" onclick="doSwipe('right')">♥ Watch</div>
-        </div>
-        <div class="prog">
-          <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
-          <span id="pt">0 / 0</span>
+      <div class="dc-wrapper">
+        <div class="dc">
+          <div class="card-stack" id="cs"></div>
+          <div class="sc">
+            <div class="scb skip" onclick="doSwipe('left')">✕ Skip</div>
+            <div class="scb watch" onclick="doSwipe('right')">♥ Watch</div>
+          </div>
+          <div class="prog">
+            <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
+            <span id="pt">0 / 0</span>
+          </div>
         </div>
       </div>
       <div class="info-toggle" onclick="toggleInfo()">ℹ Movie Info</div>
@@ -428,13 +461,13 @@ button.btn-main:hover{background:#7d6ff0;}
   </div>
 </div>
 
-<div class="mov" id="match-mod">
-  <div class="mbox">
-    <div style="font-size:3rem; margin-bottom:1rem;">🍿</div>
-    <div class="mt">Wir schauen heute Abend:</div>
-    <div id="match-title" style="font-weight:700; font-size:1.15rem; color:var(--accent2); margin-bottom:1.5rem; line-height:1.3;"></div>
-    <button class="msave" onclick="closeMatch()">Geil, let's go!</button>
+<div id="match-anim" onclick="closeMatchAnim()">
+  <div class="ma-badge">It's a Match!</div>
+  <div class="ma-poster-wrap">
+    <img id="ma-img" src="" alt="">
   </div>
+  <div id="ma-title" class="ma-title"></div>
+  <div class="ma-sub">Click anywhere to continue</div>
 </div>
 
 <div class="mov" id="pmod">
@@ -733,18 +766,28 @@ window.doSwipe=function(dir){
   f.classList.add(dir==='right'?'go-r':'go-l');
   const item = S.queue[S.qi];
   
-  setTimeout(()=>{
-    if(dir === 'right') {
-       document.getElementById('match-title').textContent = item.title;
-       document.getElementById('match-mod').classList.add('on');
-    }
-    S.qi++;renderCards();updProg();
-  },360);
+  if(dir === 'right') {
+     document.getElementById('ma-title').textContent = item.title;
+     document.getElementById('ma-img').src = item.poster ? IM + item.poster : '';
+     document.getElementById('ma-img').style.display = item.poster ? 'block' : 'none';
+     
+     const ma = document.getElementById('match-anim');
+     ma.style.display = 'flex';
+     void ma.offsetWidth; 
+     ma.classList.add('on');
+     
+     clearTimeout(window.matchAnimT);
+     window.matchAnimT = setTimeout(closeMatchAnim, 3500);
+  }
+  
+  setTimeout(()=>{S.qi++;renderCards();updProg();},360);
 };
 
-window.closeMatch=function(){
-  document.getElementById('match-mod').classList.remove('on');
-};
+window.closeMatchAnim = function() {
+   const ma = document.getElementById('match-anim');
+   ma.classList.remove('on');
+   setTimeout(() => ma.style.display = 'none', 400);
+}
 
 /* INFO PANEL LOGIC */
 window.toggleInfo=function(){
@@ -812,7 +855,7 @@ function renderWL(){
   else if(S.wtab==='d') items=items.filter(m=>m.status==='watched');
   else items=items.filter(m=>m.status!=='watched'&&!isRel(m)).sort((a,b)=>new Date(a.releaseDate||'9999')-new Date(b.releaseDate||'9999'));
   
-  items = applyFilters(items); // Apply Global Filters
+  items = applyFilters(items); 
   
   let ttl,ei,et,es;
   if(S.wtab==='w'){ttl=`Watchlist (${items.length})`;ei='📋';et='Nothing here yet';es='Search for content and add it!';}
@@ -825,7 +868,7 @@ function renderWL(){
   if(S.vmode === 'grid'){
      c.innerHTML = `<div class="wgrid">` + items.map(m=>{
         const ph=m.type==='movie'?'🎬':'📺';
-        const poster=m.poster?`<img src="${IMS}${m.poster}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`;
+        const poster=m.poster?`<img src="${IM}${m.poster}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`;
         let acts = '';
         if(m.status!=='watched'&&isRel(m)) acts += `<button class="wcb ok" onclick="markW('${m.id}')">✓ Watched</button>`;
         acts += `<button class="wcb rm" onclick="rmItem('${m.id}')">✕ Remove</button>`;
@@ -886,7 +929,7 @@ window.onInp=function(val){
   clearTimeout(sti);document.getElementById('scl').style.display=val?'block':'none';
   if(S.stab==='soon') {
       document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));
-      document.querySelector('.stab').classList.add('on');
+      document.querySelector('.stab').classList.add('on'); 
       S.stab='all';
   }
   const r=document.getElementById('sr');
