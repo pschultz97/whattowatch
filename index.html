@@ -61,9 +61,9 @@ button.btn-main:hover{background:#7d6ff0;}
 #nav.on{display:flex;}
 .nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-.8px;flex-shrink:0;}
 .nav-logo em{color:var(--accent2);font-style:normal;}
-.nav-mid{display:flex;align-items:center;gap:2px;margin:0 auto;}
-.nl{padding:7px 16px;border-radius:6px;font-size:.85rem;color:var(--muted);cursor:pointer;transition:all .2s;font-weight:400;}
-.nl:hover{color:var(--text);}
+.nav-mid{display:flex;align-items:center;gap:8px;margin:0 auto;height:100%;}
+.nl{display:flex;align-items:center;padding:0 16px;height:100%;border-radius:6px;font-size:.85rem;color:var(--muted);cursor:pointer;transition:all .2s;font-weight:500;user-select:none;}
+.nl:hover{color:var(--text);background:rgba(255,255,255,0.03);}
 .nl.on{color:var(--text);background:rgba(255,255,255,0.07);}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .nav-sep{width:1px;height:16px;background:var(--b2);}
@@ -109,16 +109,16 @@ button.btn-main:hover{background:#7d6ff0;}
 @keyframes gL{to{transform:translateX(-150%) rotate(-22deg);opacity:0;}}
 .bc{transform:scale(0.94) translateY(12px);z-index:0;pointer-events:none;opacity:.6;}
 .fc2{z-index:1;}
-.cpw{position:relative;height:62%;overflow:hidden;background:var(--bg3);}
-.cpw img{width:100%;height:100%;object-fit:contain;display:block;background:#111;}
+.cpw{position:relative;height:75%;overflow:hidden;background:var(--bg3);}
+.cpw img{width:100%;height:100%;object-fit:cover;display:block;background:#111;}
 .cph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;}
 .cpw::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--bg2));}
-.ls,.ns{position:absolute;top:14px;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;padding:4px 12px;border-radius:6px;opacity:0;pointer-events:none;letter-spacing:1px;}
+.ls,.ns{position:absolute;top:14px;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;padding:4px 12px;border-radius:6px;opacity:0;pointer-events:none;letter-spacing:1px;z-index:5;}
 .ls{left:12px;background:var(--green);color:#fff;transform:rotate(-12deg);}
 .ns{right:12px;background:var(--red);color:#fff;transform:rotate(12deg);}
 .crm{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 9px;font-size:.65rem;color:rgba(255,255,255,0.5);cursor:pointer;z-index:10;transition:all .2s;}
 .crm:hover{color:var(--red);border-color:rgba(224,85,85,0.4);}
-.cb{padding:.75rem .9rem .6rem;}
+.cb{padding:.75rem .9rem .6rem;height:25%;display:flex;flex-direction:column;justify-content:flex-start;}
 .ct{font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px;}
 .cbdg{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px;}
 .bdg{padding:2px 8px;border-radius:20px;font-size:.65rem;font-weight:500;}
@@ -126,7 +126,6 @@ button.btn-main:hover{background:#7d6ff0;}
 .bt{background:rgba(9,132,227,.12);color:#74b9ff;border:1px solid rgba(9,132,227,.2);}
 .bg{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--b1);}
 .br{background:rgba(240,160,48,.1);color:var(--amber);border:1px solid rgba(240,160,48,.2);}
-.bup{background:rgba(162,155,254,.1);color:#c3befe;border:1px solid rgba(162,155,254,.2);}
 .cd{font-size:.72rem;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 
 .sc{display:flex;align-items:center;gap:10px;}
@@ -237,7 +236,6 @@ button.btn-main:hover{background:#7d6ff0;}
 </head>
 <body>
 
-<!-- SETUP -->
 <div id="setup" class="fs">
   <div class="fs-glow"></div>
   <div class="fs-box">
@@ -253,7 +251,6 @@ button.btn-main:hover{background:#7d6ff0;}
   </div>
 </div>
 
-<!-- LOGIN -->
 <div id="login" class="fs off">
   <div class="fs-glow"></div>
   <div class="fs-box">
@@ -267,7 +264,6 @@ button.btn-main:hover{background:#7d6ff0;}
   </div>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">What<em>To</em>Watch</div>
   <div class="nav-mid">
@@ -287,9 +283,7 @@ button.btn-main:hover{background:#7d6ff0;}
   </div>
 </nav>
 
-<!-- MAIN -->
 <div id="main">
-  <!-- DISCOVER -->
   <div id="pd" class="panel on">
     <div class="fc" id="fc">
       <div>
@@ -301,14 +295,14 @@ button.btn-main:hover{background:#7d6ff0;}
         </div>
       </div>
       <div>
-        <div class="fc-lbl">Mood</div>
+        <div class="fc-lbl">Genre</div>
         <div class="mgrid">
-          <div class="mchip" data-mood="funny" onclick="toggleMood(this)"><span class="mchip-i">😂</span>Funny</div>
-          <div class="mchip" data-mood="thrilling" onclick="toggleMood(this)"><span class="mchip-i">😱</span>Thrilling</div>
-          <div class="mchip" data-mood="romantic" onclick="toggleMood(this)"><span class="mchip-i">💕</span>Romantic</div>
-          <div class="mchip" data-mood="mindblow" onclick="toggleMood(this)"><span class="mchip-i">🤯</span>Mind-blow</div>
-          <div class="mchip" data-mood="scary" onclick="toggleMood(this)"><span class="mchip-i">👻</span>Scary</div>
-          <div class="mchip" data-mood="chill" onclick="toggleMood(this)"><span class="mchip-i">😌</span>Chill</div>
+          <div class="mchip" data-genre="action" onclick="toggleGenre(this)"><span class="mchip-i">💥</span>Action</div>
+          <div class="mchip" data-genre="comedy" onclick="toggleGenre(this)"><span class="mchip-i">😂</span>Comedy</div>
+          <div class="mchip" data-genre="drama" onclick="toggleGenre(this)"><span class="mchip-i">🎭</span>Drama</div>
+          <div class="mchip" data-genre="horror" onclick="toggleGenre(this)"><span class="mchip-i">👻</span>Horror</div>
+          <div class="mchip" data-genre="romance" onclick="toggleGenre(this)"><span class="mchip-i">💕</span>Romance</div>
+          <div class="mchip" data-genre="scifi" onclick="toggleGenre(this)"><span class="mchip-i">👽</span>Sci-Fi</div>
         </div>
       </div>
       <div>
@@ -335,7 +329,6 @@ button.btn-main:hover{background:#7d6ff0;}
     </div>
   </div>
 
-  <!-- WATCHLIST -->
   <div id="pw" class="panel">
     <div class="pw-wrap">
       <div class="pg-title" id="wl-t">Watchlist</div>
@@ -349,7 +342,6 @@ button.btn-main:hover{background:#7d6ff0;}
     </div>
   </div>
 
-  <!-- SEARCH -->
   <div id="ps" class="panel">
     <div class="ps-wrap">
       <div class="pg-title">Search &amp; Add</div>
@@ -369,7 +361,6 @@ button.btn-main:hover{background:#7d6ff0;}
     </div>
   </div>
 
-  <!-- STATS -->
   <div id="pst" class="panel">
     <div class="pst-wrap">
       <div class="pg-title">Stats</div>
@@ -379,7 +370,6 @@ button.btn-main:hover{background:#7d6ff0;}
   </div>
 </div>
 
-<!-- PHOTO MODAL -->
 <div class="mov" id="pmod">
   <div class="mbox">
     <div class="mt" id="pmod-t">Edit Profile Photo</div>
@@ -410,14 +400,14 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 const IM='https://image.tmdb.org/t/p/w500',IMS='https://image.tmdb.org/t/p/w92';
-const MG={funny:[35,16],thrilling:[28,53,80,12],romantic:[10749,18],mindblow:[878,9648,99,10765],scary:[27],chill:[35,10751,16,99]};
+const GG={action:[28,10759],comedy:[35],drama:[18],horror:[27],romance:[10749],scifi:[878,10765]};
 const GS=[{id:28,n:'Action'},{id:12,n:'Adventure'},{id:16,n:'Animation'},{id:35,n:'Comedy'},{id:80,n:'Crime'},{id:99,n:'Documentary'},{id:18,n:'Drama'},{id:14,n:'Fantasy'},{id:27,n:'Horror'},{id:10749,n:'Romance'},{id:878,n:'Sci-Fi'},{id:53,n:'Thriller'},{id:10765,n:'Sci-Fi TV'},{id:10759,n:'Action TV'},{id:9648,n:'Mystery'}];
 const PR=[
   {id:'peter',name:'Peter',col:'#6ea8fe',bg:'#0d2044',in:'PE',ac:'#1a6fc4'},
   {id:'shao',name:'Shao',col:'#f08080',bg:'#2d0a0a',in:'SH',ac:'#c0392b'},
   {id:'together',name:'Together',col:'#fdcb6e',bg:'#2a2010',in:'♥',ac:'#e6a817',sh:true},
 ];
-let S={key:'',prof:null,lists:{peter:[],shao:[],together:[]},photos:{peter:null,shao:null},tf:'all',yf:'all',moods:[],stab:'all',wtab:'w',queue:[],qi:0,unsub:null};
+let S={key:'',prof:null,lists:{peter:[],shao:[],together:[]},photos:{peter:null,shao:null},tf:'all',yf:'all',genres:[],stab:'all',wtab:'w',queue:[],qi:0,unsub:null};
 
 function lsave(){try{localStorage.setItem('wtw9',JSON.stringify({key:S.key,photos:S.photos}));}catch(e){}}
 function lload(){try{const d=JSON.parse(localStorage.getItem('wtw9')||'{}');if(d.key)S.key=d.key;if(d.photos)S.photos={peter:null,shao:null,...d.photos};}catch(e){}}
@@ -508,11 +498,11 @@ function goPanel(p){
 }
 
 window.setType=function(el,t){document.querySelectorAll('.fchips .fchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.tf=t;bldQ();};
-window.toggleMood=function(el){
+window.toggleGenre=function(el){
   const wasOn=el.classList.contains('on');
   document.querySelectorAll('.mchip').forEach(c=>c.classList.remove('on'));
   if(!wasOn)el.classList.add('on');
-  S.moods=Array.from(document.querySelectorAll('.mchip.on')).map(e=>e.dataset.mood);
+  S.genres=Array.from(document.querySelectorAll('.mchip.on')).map(e=>e.dataset.genre);
   bldQ();
 };
 window.setYear=function(el,y){document.querySelectorAll('#ychips .fchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.yf=y;bldQ();};
@@ -534,7 +524,7 @@ function bldQ(){
     if(S.yf==='older')items=items.filter(m=>{const y=getYr(m);return y===null||y<2025;});
     else{const yr=parseInt(S.yf);items=items.filter(m=>getYr(m)===yr);}
   }
-  if(S.moods.length){const mg=[...new Set(S.moods.flatMap(m=>MG[m]||[]))];items=items.filter(m=>(m.genres||[]).some(g=>mg.includes(g)));}
+  if(S.genres.length){const mg=[...new Set(S.genres.flatMap(g=>GG[g]||[]))];items=items.filter(m=>(m.genres||[]).some(g=>mg.includes(g)));}
   S.queue=items.sort(()=>Math.random()-.5);S.qi=0;renderCards();updProg();
 }
 
@@ -555,7 +545,12 @@ function renderCards(){
   const st=document.getElementById('cs');if(!st)return;st.innerHTML='';
   const q=S.queue,i=S.qi;
   if(i>=q.length){
-    st.innerHTML=`<div class="empty"><div class="ei">${q.length?'🎉':'🎬'}</div><div class="et">${q.length?'All swiped!':'List is empty'}</div><div class="es">${q.length?'Add more or reset filters.':'Go to Search and add movies!'}</div></div>`;
+    st.innerHTML=`<div class="empty">
+      <div class="ei">${q.length?'🎉':'🎬'}</div>
+      <div class="et">${q.length?"You've seen them all!":'List is empty'}</div>
+      <div class="es">${q.length?'Start over or add more.':'Go to Search and add movies!'}</div>
+      ${q.length ? `<button class="addbtn" style="margin-top:1rem;font-size:1rem;padding:8px 16px;" onclick="S.qi=0;renderCards();updProg();">↻ Start Over</button>` : ''}
+    </div>`;
     return;
   }
   if(i+1<q.length)st.appendChild(mkCard(q[i+1],false));
@@ -736,3 +731,5 @@ if(S.key){document.getElementById('setup').classList.add('off');document.getElem
 </script>
 </body>
 </html>
+
+```
