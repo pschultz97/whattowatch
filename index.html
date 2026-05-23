@@ -59,7 +59,6 @@ button.btn-main:hover{background:#7d6ff0;}
 /* NAVBAR (TOP) */
 #nav{position:fixed;top:0;left:240px;right:0;height:56px;background:rgba(8,8,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:none;align-items:center;justify-content:flex-end;padding:0 2rem;z-index:100;}
 #nav.on{display:flex;}
-/* Center the logo exactly in the middle of the whole screen, despite the sidebar offset */
 .nav-logo{position:absolute;left:calc(50vw - 240px);transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-.8px;white-space:nowrap;}
 .nav-logo em{color:var(--accent2);font-style:normal;}
 .nav-right{display:flex;align-items:center;gap:8px;}
@@ -74,7 +73,7 @@ button.btn-main:hover{background:#7d6ff0;}
 /* MAIN & SIDEBAR */
 #main{position:fixed;top:0;left:0;right:0;bottom:0;display:none;flex-direction:row;}
 #main.on{display:flex;}
-.cw{flex:1;position:relative;height:100%;overflow:hidden;} /* Content Wrapper */
+.cw{flex:1;position:relative;height:100%;overflow:hidden;} 
 .panel{position:absolute;top:56px;left:0;right:0;bottom:0;display:none;}
 .panel.on{display:flex;}
 
@@ -152,10 +151,16 @@ button.btn-main:hover{background:#7d6ff0;}
 .pw-wrap{flex:1;width:100%;padding:1.75rem 2.5rem 1rem;display:flex;flex-direction:column;overflow:hidden;max-width:900px;pointer-events:auto;}
 .pg-title{font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.3px;margin-bottom:.2rem;}
 .pg-sub{font-size:.78rem;color:var(--muted);margin-bottom:1rem;}
-.wtabs{display:flex;gap:2px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;padding:3px;width:fit-content;margin-bottom:1rem;}
+.wt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.wtabs{display:flex;gap:2px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;padding:3px;width:fit-content;}
 .wtab{padding:5px 16px;border-radius:6px;font-size:.78rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .2s;}
 .wtab.on{background:rgba(255,255,255,.08);color:var(--text);}
-#wl{flex:1;overflow-y:auto;}
+
+.vtabs{display:flex;gap:2px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;padding:3px;width:fit-content;}
+.vtab{padding:5px 12px;border-radius:6px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .2s;}
+.vtab.on{background:rgba(255,255,255,.08);color:var(--text);}
+
+#wl{flex:1;overflow-y:auto;padding-right:8px;}
 #wl::-webkit-scrollbar{width:3px;}
 #wl::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
 .mrow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
@@ -168,6 +173,27 @@ button.btn-main:hover{background:#7d6ff0;}
 .ia{background:none;border:none;cursor:pointer;font-size:.78rem;color:var(--muted2);padding:5px 8px;border-radius:5px;transition:all .2s;font-family:'Inter',sans-serif;}
 .ia:hover{color:var(--text);background:rgba(255,255,255,.05);}
 .ia.ok{color:var(--green);}
+.ia.fav{color:var(--red);}
+.ia.fav:hover{background:rgba(224,85,85,0.1);}
+
+/* GRID VIEW */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:12px;padding-top:4px;padding-bottom:20px;}
+.wcard{background:var(--bg3);border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--b1);transition:all .2s;}
+.wcard:hover{border-color:var(--b3);transform:translateY(-3px);}
+.wc-img{width:100%;aspect-ratio:2/3;background:#111;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.wc-img img{width:100%;height:100%;object-fit:cover;}
+.wc-title{font-size:.7rem;font-weight:600;padding:8px 6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wc-over{position:absolute;inset:0;background:rgba(0,0,0,0.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .2s;padding:10px;}
+.wcard:hover .wc-over{opacity:1;}
+.wcb{background:rgba(255,255,255,0.1);color:var(--text);border:none;padding:6px 10px;border-radius:6px;font-size:.7rem;cursor:pointer;width:100%;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s;}
+.wcb:hover{background:rgba(255,255,255,0.2);}
+.wcb.ok{background:rgba(0,200,150,0.2);color:var(--green);}
+.wcb.ok:hover{background:rgba(0,200,150,0.3);}
+.wcb.rm{background:rgba(224,85,85,0.15);color:var(--red);}
+.wcb.rm:hover{background:rgba(224,85,85,0.25);}
+.g-fav{position:absolute;top:6px;right:6px;font-size:1rem;color:rgba(255,255,255,0.3);cursor:pointer;transition:all .2s;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));}
+.g-fav.on{color:var(--red);}
+.g-fav:hover{transform:scale(1.1);}
 
 /* ── SEARCH ── */
 #ps{flex-direction:column;overflow:hidden;pointer-events:none;align-items:center;}
@@ -238,6 +264,9 @@ button.btn-main:hover{background:#7d6ff0;}
 .avup img{width:100%;height:100%;object-fit:cover;}
 .msave{width:100%;padding:10px;background:var(--accent);border:none;color:white;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:.875rem;}
 .mcancel{width:100%;padding:8px;background:none;border:none;color:var(--muted);font-size:.75rem;cursor:pointer;margin-top:4px;}
+
+/* MATCH MODAL (DISCOVER) */
+#match-mod .mbox {text-align:center; padding: 2.5rem 1.5rem; width: 340px;}
 </style>
 </head>
 <body>
@@ -353,11 +382,19 @@ button.btn-main:hover{background:#7d6ff0;}
       <div class="pw-wrap">
         <div class="pg-title" id="wl-t">Watchlist</div>
         <div class="pg-sub" id="wl-s"></div>
-        <div class="wtabs">
-          <div class="wtab on" id="wt-w" onclick="setWTab('w')">To Watch</div>
-          <div class="wtab" id="wt-d" onclick="setWTab('d')">Watched</div>
-          <div class="wtab" id="wt-s" onclick="setWTab('s')">🔜 Coming Soon</div>
+        
+        <div class="wt-header">
+          <div class="wtabs">
+            <div class="wtab on" id="wt-w" onclick="setWTab('w')">To Watch</div>
+            <div class="wtab" id="wt-d" onclick="setWTab('d')">Watched</div>
+            <div class="wtab" id="wt-s" onclick="setWTab('s')">🔜 Coming Soon</div>
+          </div>
+          <div class="vtabs">
+            <div class="vtab on" id="vt-list" onclick="setVMode('list')">📄 List</div>
+            <div class="vtab" id="vt-grid" onclick="setVMode('grid')">▦ Grid</div>
+          </div>
         </div>
+        
         <div id="wl"></div>
       </div>
     </div>
@@ -388,6 +425,15 @@ button.btn-main:hover{background:#7d6ff0;}
         <div id="stc"></div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="mov" id="match-mod">
+  <div class="mbox">
+    <div style="font-size:3rem; margin-bottom:1rem;">🍿</div>
+    <div class="mt">Wir schauen heute Abend:</div>
+    <div id="match-title" style="font-weight:700; font-size:1.15rem; color:var(--accent2); margin-bottom:1.5rem; line-height:1.3;"></div>
+    <button class="msave" onclick="closeMatch()">Geil, let's go!</button>
   </div>
 </div>
 
@@ -431,7 +477,7 @@ const PR=[
   {id:'shao',name:'Shao',col:'#f08080',bg:'#2d0a0a',in:'SH',ac:'#c0392b'},
   {id:'together',name:'Together',col:'#fdcb6e',bg:'#2a2010',in:'♥',ac:'#e6a817',sh:true},
 ];
-let S={key:'',prof:null,lists:{peter:[],shao:[],together:[]},photos:{peter:null,shao:null},tf:'all',yf:'all',genres:[],stab:'all',wtab:'w',queue:[],qi:0,unsub:null};
+let S={key:'',prof:null,lists:{peter:[],shao:[],together:[]},photos:{peter:null,shao:null},tf:'all',yf:'all',genres:[],stab:'all',wtab:'w',vmode:'list',queue:[],qi:0,unsub:null};
 
 function lsave(){try{localStorage.setItem('wtw9',JSON.stringify({key:S.key,photos:S.photos}));}catch(e){}}
 function lload(){try{const d=JSON.parse(localStorage.getItem('wtw9')||'{}');if(d.key)S.key=d.key;if(d.photos)S.photos={peter:null,shao:null,...d.photos};}catch(e){}}
@@ -516,22 +562,60 @@ function goPanel(p){
   document.querySelectorAll('.sl').forEach(e=>e.classList.remove('on'));
   document.getElementById('p'+p).classList.add('on');
   document.getElementById('nl-'+p).classList.add('on');
-  document.getElementById('filters-wrap').style.display = (p==='d') ? 'flex' : 'none';
+  document.getElementById('filters-wrap').style.display = (p==='d' || p==='w') ? 'flex' : 'none';
   if(p==='s'){if(S.stab==='soon')loadUpcoming();}
   if(p==='st')renderStats();
   if(p==='w')renderWL();
 }
 
-window.setType=function(el,t){document.querySelectorAll('.fchips .fchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.tf=t;bldQ();};
+window.setType=function(el,t){
+  document.querySelectorAll('.fchips .fchip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  S.tf=t;
+  if(document.getElementById('pd').classList.contains('on')) bldQ();
+  if(document.getElementById('pw').classList.contains('on')) renderWL();
+};
 window.toggleGenre=function(el){
   const wasOn=el.classList.contains('on');
   if(!wasOn)el.classList.add('on');else el.classList.remove('on');
   S.genres=Array.from(document.querySelectorAll('.mchip.on')).map(e=>e.dataset.genre);
-  bldQ();
+  if(document.getElementById('pd').classList.contains('on')) bldQ();
+  if(document.getElementById('pw').classList.contains('on')) renderWL();
 };
-window.setYear=function(el,y){document.querySelectorAll('#ychips .fchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.yf=y;bldQ();};
+window.setYear=function(el,y){
+  document.querySelectorAll('#ychips .fchip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  S.yf=y;
+  if(document.getElementById('pd').classList.contains('on')) bldQ();
+  if(document.getElementById('pw').classList.contains('on')) renderWL();
+};
+
 window.setWTab=function(t){S.wtab=t;['w','d','s'].forEach(x=>document.getElementById('wt-'+x).classList.toggle('on',x===t));renderWL();};
-window.setSTab=function(el,t){document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.stab=t;if(t==='soon'){document.getElementById('si').value='';document.getElementById('scl').style.display='none';loadUpcoming();}else{const v=document.getElementById('si').value.trim();if(v)doSearch(v);else document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';}};
+
+window.setVMode=function(m){
+  S.vmode=m;
+  document.querySelectorAll('.vtab').forEach(e=>e.classList.remove('on'));
+  document.getElementById('vt-'+m).classList.add('on');
+  renderWL();
+};
+
+window.setSTab=function(el,t){
+  document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  S.stab=t;
+  if(t==='soon'){
+    document.getElementById('scl').style.display='none';
+    loadUpcoming();
+  }else{
+    const v=document.getElementById('si').value.trim();
+    if(v) doSearch(v);
+    else {
+      document.getElementById('scl').style.display='none';
+      document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';
+    }
+  }
+};
+
 window.clrSearch=function(){document.getElementById('si').value='';document.getElementById('scl').style.display='none';document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';};
 
 function ml(){return S.lists[S.prof?.id]||[];}
@@ -540,9 +624,7 @@ function getYr(m){if(!m.releaseDate)return null;const y=parseInt(m.releaseDate.s
 function fmtDate(s){if(!s)return'';const d=new Date(s);if(isNaN(d.getTime()))return s;return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
 function daysTo(s){if(!s)return null;const d=new Date(s);if(isNaN(d.getTime()))return null;return Math.ceil((d-new Date())/86400000);}
 
-function bldQ(){
-  if(!S.prof)return;
-  let items=ml().filter(m=>m.status!=='watched'&&isRel(m));
+function applyFilters(items){
   if(S.tf!=='all')items=items.filter(m=>m.type===S.tf);
   if(S.yf!=='all'){
     items=items.filter(m=>{
@@ -569,6 +651,13 @@ function bldQ(){
       return match;
     });
   }
+  return items;
+}
+
+function bldQ(){
+  if(!S.prof)return;
+  let items=ml().filter(m=>m.status!=='watched'&&isRel(m));
+  items = applyFilters(items);
   S.queue=items.sort(()=>Math.random()-.5);S.qi=0;renderCards();updProg();
 }
 
@@ -594,10 +683,7 @@ function renderCards(){
   if(i+1<q.length)st.appendChild(mkCard(q[i+1],false));
   st.appendChild(mkCard(q[i],true));
   
-  // Update Info-Panel if it's currently open
-  if(document.getElementById('info-panel').classList.contains('on')) {
-    loadInfo();
-  }
+  if(document.getElementById('info-panel').classList.contains('on')) loadInfo();
 }
 
 function mkCard(item,front){
@@ -630,7 +716,13 @@ function setupDrag(card){
   const gl=()=>card.querySelector('.ls'),gn=()=>card.querySelector('.ns');
   function start(cx){sx=cx;on=true;card.classList.add('drag');}
   function move(cx){if(!on)return;x=cx-sx;card.style.transform=`translateX(${x}px) rotate(${x*.04}deg)`;const l=gl(),n=gn();if(l)l.style.opacity=Math.min(1,Math.max(0,x/80));if(n)n.style.opacity=Math.min(1,Math.max(0,-x/80));}
-  function end(){if(!on)return;on=false;card.classList.remove('drag');card.style.transform='';const l=gl(),n=gn();if(l)l.style.opacity=0;if(n)n.style.opacity=0;if(x>90)doSwipe('right');else if(x<-90)doSwipe('left');x=0;}
+  function end(){
+    if(!on)return;on=false;card.classList.remove('drag');card.style.transform='';
+    const l=gl(),n=gn();if(l)l.style.opacity=0;if(n)n.style.opacity=0;
+    if(x>90) doSwipe('right');
+    else if(x<-90) doSwipe('left');
+    x=0;
+  }
   card.addEventListener('mousedown',e=>{e.preventDefault();start(e.clientX);});
   window.addEventListener('mousemove',e=>move(e.clientX));
   window.addEventListener('mouseup',end);
@@ -639,8 +731,19 @@ function setupDrag(card){
 window.doSwipe=function(dir){
   const st=document.getElementById('cs'),f=st.querySelector('.fc2');if(!f)return;
   f.classList.add(dir==='right'?'go-r':'go-l');
+  const item = S.queue[S.qi];
   
-  setTimeout(()=>{S.qi++;renderCards();updProg();},360);
+  setTimeout(()=>{
+    if(dir === 'right') {
+       document.getElementById('match-title').textContent = item.title;
+       document.getElementById('match-mod').classList.add('on');
+    }
+    S.qi++;renderCards();updProg();
+  },360);
+};
+
+window.closeMatch=function(){
+  document.getElementById('match-mod').classList.remove('on');
 };
 
 /* INFO PANEL LOGIC */
@@ -703,20 +806,59 @@ window.loadInfo=async function(){
 
 function renderWL(){
   const wl=ml(),c=document.getElementById('wl');if(!c)return;
-  let items,ttl,ei,et,es;
-  if(S.wtab==='w'){items=wl.filter(m=>m.status!=='watched'&&isRel(m));ttl=`Watchlist (${items.length})`;ei='📋';et='Nothing here yet';es='Search for content and add it!';}
-  else if(S.wtab==='d'){items=wl.filter(m=>m.status==='watched');ttl=`Watched (${items.length})`;ei='✅';et='Nothing watched yet';es='';}
-  else{items=wl.filter(m=>m.status!=='watched'&&!isRel(m)).sort((a,b)=>new Date(a.releaseDate||'9999')-new Date(b.releaseDate||'9999'));ttl=`Coming Soon (${items.length})`;ei='🔜';et='No upcoming titles';es='Add upcoming movies from Search → Coming Soon!';}
+  let items = wl;
+  
+  if(S.wtab==='w') items=items.filter(m=>m.status!=='watched'&&isRel(m));
+  else if(S.wtab==='d') items=items.filter(m=>m.status==='watched');
+  else items=items.filter(m=>m.status!=='watched'&&!isRel(m)).sort((a,b)=>new Date(a.releaseDate||'9999')-new Date(b.releaseDate||'9999'));
+  
+  items = applyFilters(items); // Apply Global Filters
+  
+  let ttl,ei,et,es;
+  if(S.wtab==='w'){ttl=`Watchlist (${items.length})`;ei='📋';et='Nothing here yet';es='Search for content and add it!';}
+  else if(S.wtab==='d'){ttl=`Watched (${items.length})`;ei='✅';et='Nothing watched yet';es='';}
+  else{ttl=`Coming Soon (${items.length})`;ei='🔜';et='No upcoming titles';es='Add upcoming movies from Search → Coming Soon!';}
   const t=document.getElementById('wl-t');if(t)t.textContent=ttl;
+  
   if(!items.length){c.innerHTML=`<div class="empty"><div class="ei">${ei}</div><div class="et">${et}</div><div class="es">${es}</div></div>`;return;}
-  c.innerHTML=items.map(m=>{
-    const ph=m.type==='movie'?'🎬':'📺';
-    const poster=m.poster?`<img src="${IMS}${m.poster}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`;
-    const days=S.wtab==='s'?daysTo(m.releaseDate):null;
-    const dl=S.wtab==='s'&&m.releaseDate?`<span style="color:var(--green);font-weight:500;margin-left:4px;">${days===0?'Today!':days===1?'Tomorrow!':days>0?'in '+days+' days':''}  ${fmtDate(m.releaseDate)}</span>`:'';
-    return `<div class="mrow"><div class="mri">${poster}</div><div style="flex:1;min-width:0"><div class="mrt">${m.title}</div><div class="mrs">${m.type==='movie'?'Movie':'Series'} · ${(m.genreNames||[]).slice(0,2).join(', ')}${dl}</div></div><div class="mra">${m.status!=='watched'&&isRel(m)?`<button class="ia ok" onclick="markW('${m.id}')">✓ Watched</button>`:''}<button class="ia" onclick="rmItem('${m.id}')">✕ Remove</button></div></div>`;
-  }).join('');
+  
+  if(S.vmode === 'grid'){
+     c.innerHTML = `<div class="wgrid">` + items.map(m=>{
+        const ph=m.type==='movie'?'🎬':'📺';
+        const poster=m.poster?`<img src="${IMS}${m.poster}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`;
+        let acts = '';
+        if(m.status!=='watched'&&isRel(m)) acts += `<button class="wcb ok" onclick="markW('${m.id}')">✓ Watched</button>`;
+        acts += `<button class="wcb rm" onclick="rmItem('${m.id}')">✕ Remove</button>`;
+        let favIcon = m.status==='watched' ? `<div class="g-fav ${m.favorite?'on':''}" onclick="toggleFav('${m.id}')">${m.favorite?'❤️':'🤍'}</div>` : '';
+        
+        return `<div class="wcard">
+           ${favIcon}
+           <div class="wc-img">${poster}</div>
+           <div class="wc-title">${m.title}</div>
+           <div class="wc-over">${acts}</div>
+        </div>`;
+     }).join('') + `</div>`;
+  } else {
+     c.innerHTML=items.map(m=>{
+        const ph=m.type==='movie'?'🎬':'📺';
+        const poster=m.poster?`<img src="${IMS}${m.poster}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`;
+        const days=S.wtab==='s'?daysTo(m.releaseDate):null;
+        const dl=S.wtab==='s'&&m.releaseDate?`<span style="color:var(--green);font-weight:500;margin-left:4px;">${days===0?'Today!':days===1?'Tomorrow!':days>0?'in '+days+' days':''}  ${fmtDate(m.releaseDate)}</span>`:'';
+        let favBtn = m.status==='watched' ? `<button class="ia ${m.favorite?'fav':''}" onclick="toggleFav('${m.id}')">${m.favorite?'❤️ Fav':'🤍 Fav'}</button>` : '';
+        
+        return `<div class="mrow"><div class="mri">${poster}</div><div style="flex:1;min-width:0"><div class="mrt">${m.title}</div><div class="mrs">${m.type==='movie'?'Movie':'Series'} · ${(m.genreNames||[]).slice(0,2).join(', ')}${dl}</div></div><div class="mra">${favBtn}${m.status!=='watched'&&isRel(m)?`<button class="ia ok" onclick="markW('${m.id}')">✓ Watched</button>`:''}<button class="ia" onclick="rmItem('${m.id}')">✕ Remove</button></div></div>`;
+      }).join('');
+  }
 }
+
+window.toggleFav=function(id){
+  const m=ml().find(x=>x.id===id);
+  if(m){
+    m.favorite=!m.favorite;
+    fbSave(S.prof.id,S.lists[S.prof.id]);
+    renderWL();
+  }
+};
 
 window.markW=function(id){const m=ml().find(x=>x.id===id);if(m){m.status='watched';fbSave(S.prof.id,S.lists[S.prof.id]);renderWL();bldQ();toast('✓ Marked as watched!');}};
 window.rmItem=function(id){S.lists[S.prof.id]=S.lists[S.prof.id].filter(x=>x.id!==id);fbSave(S.prof.id,S.lists[S.prof.id]);renderWL();bldQ();toast('Removed');};
@@ -742,7 +884,11 @@ function renderStats(){
 let sti;
 window.onInp=function(val){
   clearTimeout(sti);document.getElementById('scl').style.display=val?'block':'none';
-  if(S.stab==='soon')return;
+  if(S.stab==='soon') {
+      document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));
+      document.querySelector('.stab').classList.add('on');
+      S.stab='all';
+  }
   const r=document.getElementById('sr');
   if(!val.trim()){r.innerHTML='<div class="hint">Search for a movie or series.</div>';return;}
   r.innerHTML='<div class="spin">Searching</div>';
