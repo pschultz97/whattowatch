@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:19px;}
+html{font-size:21px;} /* Schrift global vergrößert */
 body{height:100vh;overflow:hidden;background:#08080f;color:#e8e8f0;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
 
 /* VARIABLES */
@@ -183,7 +183,7 @@ button.btn-main:hover{background:#7d6ff0;}
 .wcard:hover{border-color:var(--b3);transform:translateY(-3px);}
 .wc-img{width:100%;aspect-ratio:2/3;background:#111;display:flex;align-items:center;justify-content:center;font-size:2rem;}
 .wc-img img{width:100%;height:100%;object-fit:cover;}
-.wc-title{font-size:.85rem;font-weight:600;padding:12px 10px;text-align:center;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;}
+.wc-title{font-size:.85rem;font-weight:600;padding:12px 10px;text-align:center;white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;}
 .wc-over{position:absolute;inset:0;background:rgba(0,0,0,0.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;transition:opacity .2s;padding:15px;}
 .wcard:hover .wc-over{opacity:1;}
 .wcb{background:rgba(255,255,255,0.1);color:var(--text);border:none;padding:8px 12px;border-radius:6px;font-size:.75rem;cursor:pointer;width:100%;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s;}
@@ -240,7 +240,7 @@ button.btn-main:hover{background:#7d6ff0;}
 .stab{padding:5px 12px;border-radius:6px;font-size:.78rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;}
 .stab:hover{color:var(--text);background:rgba(255,255,255,.04);}
 .stab.on{color:var(--text);background:rgba(255,255,255,.06);border-color:var(--b1);}
-#sr{flex:1;overflow-y:auto;}
+#sr{flex:1;overflow-y:auto;padding-right:12px;}
 #sr::-webkit-scrollbar{width:3px;}
 #sr::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
 .rrow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
@@ -248,7 +248,7 @@ button.btn-main:hover{background:#7d6ff0;}
 .rri img{width:100%;height:100%;object-fit:cover;}
 .rrt{font-size:.85rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
 .rrs{font-size:.72rem;color:var(--muted);}
-.addbtn{padding:5px 14px;border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;border:1px solid var(--b2);background:rgba(108,92,231,.15);color:var(--accent2);transition:all .2s;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;}
+.addbtn{padding:5px 14px;border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;border:1px solid var(--b2);background:rgba(108,92,231,.15);color:var(--accent2);transition:all .2s;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;margin-right:10px;}
 .addbtn:hover{background:rgba(108,92,231,.25);border-color:rgba(108,92,231,.4);}
 .addbtn.in{background:rgba(0,200,150,.08);color:var(--green);border-color:rgba(0,200,150,.2);cursor:default;}
 
@@ -260,6 +260,8 @@ button.btn-main:hover{background:#7d6ff0;}
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
 .sc2{background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:12px;padding:1.125rem;}
 .sc2.w2{grid-column:span 2;}
+.sc2.w3{grid-column:span 3;}
+.sc2.w4{grid-column:span 4;}
 .sv{font-family:'Inter',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:2px;}
 .sl_st{font-size:.72rem;color:var(--muted);}
 .sc2-t{font-size:.78rem;font-weight:500;margin-bottom:.875rem;}
@@ -674,7 +676,7 @@ function applyFilters(items){
     items = items.filter(m => {
       let match = false;
       if(S.genres.includes('K-Drama')){
-        if(m.type === 'tv' && (m.originCountry||[]).includes('KR')) match = true;
+        if((m.originCountry||[]).includes('KR') || m.originalLanguage === 'ko') match = true;
       }
       const otherGenres = S.genres.filter(g => g !== 'K-Drama');
       if(otherGenres.length){
@@ -910,17 +912,46 @@ function renderStats(){
   const c=document.getElementById('stc');if(!c)return;
   const all=PR.map(p=>S.lists[p.id]||[]);
   const combined=[...new Map(all.flat().map(m=>[m.id,m])).values()];
-  const watched=combined.filter(m=>m.status==='watched'),toW=combined.filter(m=>m.status!=='watched');
+  const watched=combined.filter(m=>m.status==='watched');
+  const toW=combined.filter(m=>m.status!=='watched');
+  const total=combined.length;
+  
+  const favs = combined.filter(m=>m.favorite).length;
+  const compRate = total > 0 ? Math.round((watched.length / total) * 100) : 0;
+  
   const gc={};combined.forEach(m=>(m.genreNames||[]).forEach(g=>{gc[g]=(gc[g]||0)+1;}));
-  const tG=Object.entries(gc).sort((a,b)=>b[1]-a[1]).slice(0,6),mx=tG[0]?tG[0][1]:1;
+  const tG=Object.entries(gc).sort((a,b)=>b[1]-a[1]).slice(0,4),mx=tG[0]?tG[0][1]:1;
+  
+  const yc={};
+  combined.forEach(m => {
+     const y = getYr(m);
+     if(y){
+         const dec = Math.floor(y/10)*10 + 's';
+         yc[dec] = (yc[dec]||0)+1;
+     }
+  });
+  const tY = Object.entries(yc).sort((a,b)=>b[1]-a[1]).slice(0,4), mxY = tY[0]?tY[0][1]:1;
+  
   const ps=PR.filter(p=>!p.sh).map(p=>{const l=S.lists[p.id]||[];return{p,tot:l.length,w:l.filter(m=>m.status==='watched').length};});
+  
   c.innerHTML=`<div class="sgrid">
     <div class="sc2"><div class="sv">${toW.length}</div><div class="sl_st">To Watch</div></div>
     <div class="sc2"><div class="sv">${watched.length}</div><div class="sl_st">Watched</div></div>
     <div class="sc2"><div class="sv">${combined.filter(m=>m.type==='movie').length}</div><div class="sl_st">Movies</div></div>
     <div class="sc2"><div class="sv">${combined.filter(m=>m.type==='tv').length}</div><div class="sl_st">Series</div></div>
+    
+    <div class="sc2"><div class="sv" style="color:var(--red)">${favs}</div><div class="sl_st">Favorites ❤️</div></div>
+    <div class="sc2 w3">
+       <div class="sc2-t" style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Completion Progress</span><span>${compRate}%</span></div>
+       <div style="width:100%;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+          <div style="width:${compRate}%;height:100%;background:var(--green);transition:width 1s;"></div>
+       </div>
+    </div>
+    
     <div class="sc2 w2"><div class="sc2-t">Top Genres</div>${tG.map(([g,n])=>`<div class="gbr"><div class="gbn">${g}</div><div class="gbt"><div class="gbf" style="width:${Math.round(n/mx*100)}%;background:var(--accent2)"></div></div><div class="gbc">${n}</div></div>`).join('')||'<div style="color:var(--muted);font-size:.78rem">Add movies to see stats</div>'}</div>
-    <div class="sc2 w2"><div class="sc2-t">By Profile</div>${ps.map(({p,tot,w})=>`<div class="psr"><div class="av-xs" style="background:${p.bg};color:${p.col}">${S.photos[p.id]?`<img src="${S.photos[p.id]}" style="width:100%;height:100%;object-fit:cover">`:p.in}</div><div style="flex:1"><div class="psn">${p.name}</div><div class="pss">${w} watched · ${tot-w} to go</div></div><div class="psv" style="color:${p.col}">${tot}</div></div>`).join('')}</div>
+    <div class="sc2 w2"><div class="sc2-t">Top Eras</div>${tY.map(([g,n])=>`<div class="gbr"><div class="gbn">${g}</div><div class="gbt"><div class="gbf" style="width:${Math.round(n/mxY*100)}%;background:var(--amber)"></div></div><div class="gbc">${n}</div></div>`).join('')||'<div style="color:var(--muted);font-size:.78rem">Add movies to see stats</div>'}</div>
+    
+    <div class="sc2 w4"><div class="sc2-t">By Profile</div>${ps.map(({p,tot,w})=>`<div class="psr"><div class="av-xs" style="background:${p.bg};color:${p.col}">${S.photos[p.id]?`<img src="${S.photos[p.id]}" style="width:100%;height:100%;object-fit:cover">`:p.in}</div><div style="flex:1"><div class="psn">${p.name}</div><div class="pss">${w} watched · ${tot-w} to go</div></div><div class="psv" style="color:${p.col}">${tot}</div></div>`).join('')}</div>
   </div>`;
 }
 
@@ -974,7 +1005,7 @@ function renderRes(items,upcoming){
     const yr=raw.slice(0,4),rat=item.vote_average>0?item.vote_average.toFixed(1):null;
     const gIds=item.genre_ids||[],gN=gIds.slice(0,2).map(gid=>{const g=GS.find(x=>x.id===gid);return g?g.n:'';}).filter(Boolean);
     const ph=item.mt==='movie'?'🎬':'📺',k='r_'+Math.random().toString(36).slice(2);
-    window[k]=JSON.stringify({id,mediaType:item.mt,type:item.mt==='movie'?'movie':'tv',title,poster:item.poster_path||null,overview:item.overview||'',rating:rat,genres:gIds,genreNames:gN,releaseDate:raw,upcoming:!!upcoming,status:'to_watch',originCountry:item.origin_country||[]});
+    window[k]=JSON.stringify({id,mediaType:item.mt,type:item.mt==='movie'?'movie':'tv',title,poster:item.poster_path||null,overview:item.overview||'',rating:rat,genres:gIds,genreNames:gN,releaseDate:raw,upcoming:!!upcoming,status:'to_watch',originCountry:item.origin_country||[],originalLanguage:item.original_language||''});
     return `<div class="rrow"><div class="rri">${item.poster_path?`<img src="${IMS}${item.poster_path}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`}</div><div style="flex:1;min-width:0"><div class="rrt">${title}</div><div class="rrs">${item.mt==='movie'?'Movie':'Series'}${yr?' · '+yr:''}${rat?' · ⭐'+rat:''} · ${gN.join(', ')}${upcoming&&raw?` · <span style="color:var(--green)">🔜 ${raw}</span>`:''}</div></div><button class="addbtn ${inList?'in':''}" onclick="addItem(window['${k}'])" ${inList?'disabled':''}>${inList?'✓ Added':'+ Add'}</button></div>`;
   }).join('');
 }
