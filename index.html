@@ -57,11 +57,11 @@ button.btn-main:hover{background:#7d6ff0;}
 .chkey{font-size:.72rem;color:var(--muted2);text-align:center;margin-top:.625rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
 
 /* NAVBAR (TOP) */
-#nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(8,8,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:none;align-items:center;justify-content:space-between;padding:0 2rem;z-index:100;}
+#nav{position:fixed;top:0;left:240px;right:0;height:56px;background:rgba(8,8,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:none;align-items:center;justify-content:flex-end;padding:0 2rem;z-index:100;}
 #nav.on{display:flex;}
-.nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-.8px;flex-shrink:0;}
+.nav-logo{position:absolute;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-.8px;white-space:nowrap;}
 .nav-logo em{color:var(--accent2);font-style:normal;}
-.nav-right{display:flex;align-items:center;justify-content:flex-end;gap:8px;}
+.nav-right{display:flex;align-items:center;gap:8px;}
 .nav-sep{width:1px;height:16px;background:var(--b2);}
 .nav-gear{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.85rem;border:1px solid transparent;transition:all .2s;}
 .nav-gear:hover{color:var(--text);border-color:var(--b2);}
@@ -71,10 +71,10 @@ button.btn-main:hover{background:#7d6ff0;}
 .sync-sm{display:flex;align-items:center;gap:4px;font-size:.7rem;color:var(--muted);}
 
 /* MAIN & SIDEBAR */
-#main{position:fixed;top:56px;left:0;right:0;bottom:0;display:none;flex-direction:row;}
+#main{position:fixed;top:0;left:0;right:0;bottom:0;display:none;flex-direction:row;}
 #main.on{display:flex;}
 .cw{flex:1;position:relative;height:100%;overflow:hidden;} /* Content Wrapper */
-.panel{position:absolute;inset:0;display:none;}
+.panel{position:absolute;top:56px;left:0;right:0;bottom:0;display:none;}
 .panel.on{display:flex;}
 
 /* SIDEBAR (GLOBAL) */
@@ -87,6 +87,7 @@ button.btn-main:hover{background:#7d6ff0;}
 .sl.on{color:var(--text);background:rgba(255,255,255,0.08);}
 
 /* FILTERS */
+#filters-wrap{display:flex;flex-direction:column;gap:1.25rem;}
 .fchips{display:flex;flex-direction:column;gap:3px;}
 .fchip{padding:6px 10px;border-radius:6px;font-size:.78rem;cursor:pointer;color:var(--muted);transition:all .15s;border:1px solid transparent;}
 .fchip:hover{color:var(--text);background:rgba(255,255,255,0.04);}
@@ -97,7 +98,6 @@ button.btn-main:hover{background:#7d6ff0;}
 .mchip.on{color:var(--accent2);background:rgba(108,92,231,0.12);border-color:rgba(108,92,231,0.25);}
 
 /* ── DISCOVER ── */
-/* Center card visually on total screen ignoring sidebar: move left by half the sidebar width (120px) */
 .dc{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.875rem;padding:1.5rem;transform:translateX(-120px);}
 .card-stack{position:relative;width:360px;height:670px;flex-shrink:0;}
 .mcard{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:grab;user-select:none;border:1px solid var(--b2);display:flex;flex-direction:column;}
@@ -277,7 +277,7 @@ button.btn-main:hover{background:#7d6ff0;}
 <div id="main">
 
   <div class="fc" id="global-sidebar">
-    <div style="margin-bottom: 2.5rem;">
+    <div>
       <div class="fc-lbl">Menu</div>
       <div class="sl on" id="nl-d" onclick="goPanel('d')">Discover</div>
       <div class="sl" id="nl-w" onclick="goPanel('w')">Watchlist</div>
@@ -286,7 +286,7 @@ button.btn-main:hover{background:#7d6ff0;}
     </div>
 
     <div id="filters-wrap">
-      <div style="margin-bottom: 1.25rem;">
+      <div>
         <div class="fc-lbl">Type</div>
         <div class="fchips">
           <div class="fchip on" onclick="setType(this,'all')">All</div>
@@ -294,7 +294,7 @@ button.btn-main:hover{background:#7d6ff0;}
           <div class="fchip" onclick="setType(this,'tv')">📺 Series</div>
         </div>
       </div>
-      <div style="margin-bottom: 1.25rem;">
+      <div>
         <div class="fc-lbl">Genre</div>
         <div class="mgrid">
           <div class="mchip" data-genre="Action" onclick="toggleGenre(this)">💥 Action</div>
@@ -503,7 +503,7 @@ function goPanel(p){
   document.querySelectorAll('.sl').forEach(e=>e.classList.remove('on'));
   document.getElementById('p'+p).classList.add('on');
   document.getElementById('nl-'+p).classList.add('on');
-  document.getElementById('filters-wrap').style.display = (p==='d') ? 'block' : 'none';
+  document.getElementById('filters-wrap').style.display = (p==='d') ? 'flex' : 'none';
   if(p==='s'){if(S.stab==='soon')loadUpcoming();}
   if(p==='st')renderStats();
   if(p==='w')renderWL();
