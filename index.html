@@ -33,13 +33,24 @@ body{height:100vh;overflow:hidden;background:var(--bg);color:var(--text);font-fa
   --green:#00c896;--red:#e05555;--amber:#f0a030;
 }
 
-/* FULLSCREEN & CINEMA CURTAIN EFFECT (Feine, dichte Samtfalten) */
+/* FULLSCREEN & CINEMA CURTAIN EFFECT (Breite, schwere Samtfalten exakt wie Bild 3) */
 .fs{
   position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;
-  /* Kinovorhang mit dichteren Falten (alle 40px eine Falte) */
+  /* Kinovorhang mit realistischen, breiten Faltenverläufen und weichen Schatten */
   background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.95) 100%),
-    repeating-linear-gradient(to right, #060000 0px, #260002 8px, #5e0004 16px, #9E0006 20px, #5e0004 24px, #260002 32px, #060000 40px);
+    linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.85) 100%),
+    repeating-linear-gradient(to right, 
+      #040001 0px, 
+      #1a0002 25px, 
+      #4e0005 60px, 
+      #8c0008 100px, 
+      #be000b 125px, 
+      #8c0008 150px, 
+      #4e0005 190px, 
+      #1a0002 225px, 
+      #040001 250px
+    );
+  background-size: 100% 100%, 250px 100%;
   box-shadow: inset 0 0 150px rgba(0,0,0,0.95);
 }
 .fs.off{display:none;}
@@ -116,17 +127,17 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .sl:hover{color:var(--text);background:rgba(158,0,6,0.1);}
 .sl.on{color:var(--text);background:rgba(158,0,6,0.2);border-color:var(--b1);box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
 
-/* FILTERS */
+/* FILTERS - Clean & vibrant movie-theater aesthetic, completely brown-free */
 #filters-wrap{display:flex;flex-direction:column;gap:0.75rem;}
 .fchips{display:flex;flex-direction:column;gap:2px;}
 .fchip{padding:4px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;background:transparent;}
 .fchip:hover{color:var(--text);background:rgba(158,0,6,0.1);}
-.fchip.on{color:var(--accent2);background:rgba(230,168,23,0.15);border-color:rgba(230,168,23,0.3);box-shadow: 0 4px 12px rgba(230,168,23,0.15);}
+.fchip.on{color:#ffffff;background:rgba(255,30,66,0.25);border-color:var(--logo-red);box-shadow: 0 4px 15px rgba(255, 30, 66, 0.35);}
 
 .mgrid{display:flex;flex-direction:column;gap:2px;}
 .mchip{padding:4px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;color:var(--muted);transition:all .2s;border:1px solid transparent;display:flex;align-items:center;background:transparent;}
 .mchip:hover{color:var(--text);background:rgba(158,0,6,0.1);}
-.mchip.on{color:var(--accent2);background:rgba(230,168,23,0.15);border-color:rgba(230,168,23,0.3);box-shadow: 0 4px 12px rgba(230,168,23,0.15);}
+.mchip.on{color:#ffffff;background:rgba(255,30,66,0.25);border-color:var(--logo-red);box-shadow: 0 4px 15px rgba(255, 30, 66, 0.35);}
 
 /* ── DISCOVER ── */
 .dc-wrapper{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform:translateX(-120px);}
@@ -282,7 +293,7 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .rrow:hover{background:rgba(158,0,6,0.12);}
 .rri{width:45px;height:65px;border-radius:8px;background:var(--bg3);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 10px rgba(0,0,0,0.6);}
 .rri img{width:100%;height:100%;object-fit:cover;}
-.rrt{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.rrt nighttime{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
 .rrs{font-size:.75rem;color:var(--muted);}
 .addbtn{padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;border:1px solid rgba(230,168,23,0.3);background:rgba(230,168,23,.15);color:var(--accent2);transition:all .2s;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;margin-right:5px;}
 .addbtn:hover{background:rgba(230,168,23,.3);border-color:rgba(230,168,23,.5);transform:translateY(-2px);}
@@ -567,7 +578,7 @@ function fbListen(){
     if(snap.exists){
       S.lists[p.id]=snap.data().items||[];
       if(S.prof?.id===p.id){bldQ();renderWL();if(document.getElementById('pst').classList.contains('on'))renderStats();}
-      if(!S.prof) { renderProfiles(); } // Fix für den Counter beim Neuladen
+      if(!S.prof) { renderProfiles(); } 
     }
   },e=>console.error(e)));
   S.unsub=()=>us.forEach(u=>u());
