@@ -33,25 +33,11 @@ body{height:100vh;overflow:hidden;background:var(--bg);color:var(--text);font-fa
   --green:#00c896;--red:#e05555;--amber:#f0a030;
 }
 
-/* FULLSCREEN & CINEMA CURTAIN EFFECT (Breite, schwere Samtfalten exakt wie Bild 3) */
+/* FULLSCREEN (Jetzt komplett ohne Vorhang-Falten, nur sauberer roter Kino-Glow) */
 .fs{
   position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;
-  /* Kinovorhang mit realistischen, breiten Faltenverläufen und weichen Schatten */
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.85) 100%),
-    repeating-linear-gradient(to right, 
-      #040001 0px, 
-      #1a0002 25px, 
-      #4e0005 60px, 
-      #8c0008 100px, 
-      #be000b 125px, 
-      #8c0008 150px, 
-      #4e0005 190px, 
-      #1a0002 225px, 
-      #040001 250px
-    );
-  background-size: 100% 100%, 250px 100%;
-  box-shadow: inset 0 0 150px rgba(0,0,0,0.95);
+  background: radial-gradient(circle at center, #540003 0%, #1a0001 100%);
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.85);
 }
 .fs.off{display:none;}
 .fs-box{position:relative;z-index:1;width:550px;text-align:center;margin:0 auto; padding: 2rem;}
@@ -106,7 +92,9 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .nav-sep{width:1px;height:16px;background:var(--b2);}
 .nav-gear{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.85rem;border:1px solid transparent;transition:all .2s;}
 .nav-gear:hover{color:var(--text);border-color:var(--b2);background:rgba(158,0,6,0.1);}
-.nav-prof(display:flex;align-items:center;gap:7px;padding:4px 10px 4px 5px;border-radius:8px;cursor:pointer;border:1px solid var(--b1);transition:all .2s;background:rgba(0,0,0,0.3);}
+
+/* FIX: Klammer-Tippfehler korrigiert, damit das gesamte Layout wieder einwandfrei rendert */
+.nav-prof{display:flex;align-items:center;gap:7px;padding:4px 10px 4px 5px;border-radius:8px;cursor:pointer;border:1px solid var(--b1);transition:all .2s;background:rgba(0,0,0,0.3);}
 .nav-prof:hover{border-color:var(--logo-red);background:rgba(158,0,6,0.15);}
 .nav-prof-name{font-size:.8rem;font-weight:500;}
 .sync-sm{display:flex;align-items:center;gap:4px;font-size:.7rem;color:var(--muted);}
@@ -148,7 +136,7 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .dc-wrapper{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform:translateX(-120px);background:transparent;}
 .dc{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.875rem;}
 
-/* FORMAT-RESTORATION: Gesamtabmessung der Karte bleibt erhalten */
+/* FORMAT-RESTORATION: Dimensionen exakt wie im blauen Vorgänger-Format wiederhergestellt */
 .card-stack{position:relative;width:min(360px, 45vh);height:min(670px, 75vh);flex-shrink:0;}
 .mcard{position:absolute;inset:0;border-radius:20px;overflow:hidden;background:rgba(15,0,2,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);cursor:grab;user-select:none;border:1px solid rgba(158,0,6,0.35);display:flex;flex-direction:column;box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);}
 .mcard.drag{cursor:grabbing;}
