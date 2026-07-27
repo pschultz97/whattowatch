@@ -296,10 +296,10 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .rrow:hover{background:rgba(158,0,6,0.12);}
 .rri{width:45px;height:65px;border-radius:8px;background:var(--bg3);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 10px rgba(0,0,0,0.6);}
 .rri img{width:100%;height:100%;object-fit:cover;}
-.rrt nighttime{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.rrt{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
 .rrs{font-size:.75rem;color:var(--muted);}
 .addbtn{padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;border:1px solid rgba(230,168,23,0.3);background:rgba(230,168,23,.15);color:var(--accent2);transition:all .2s;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;margin-right:5px;}
-.addbtn:hover{background:gradient(35deg, var(--accent), #d39e00);border-color:rgba(230,168,23,.5);transform:translateY(-2px);}
+.addbtn:hover{background:linear-gradient(135deg, var(--accent), #d39e00);border-color:rgba(230,168,23,.5);transform:translateY(-2px);}
 .addbtn.in{background:rgba(0,200,150,.1);color:var(--green);border-color:rgba(0,200,150,.3);cursor:default;}
 .addbtn.in:hover{transform:none;}
 
@@ -352,7 +352,7 @@ button.btn-main:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(230
 .avup{width:80px;height:80px;border-radius:50%;background:rgba(0,0,0,0.5);border:2px dashed rgba(158,0,6,0.5);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;overflow:hidden;transition:all .3s;}
 .avup:hover{border-color:var(--accent2);background:rgba(230,168,23,0.1);}
 .avup img{width:100%;height:100%;object-fit:cover;}
-.msave{width:100%;padding:12px;background:gradient(135deg, var(--accent), #d39e00);border:none;color:white;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:1.25rem;transition:all .3s;box-shadow:0 4px 15px rgba(230,168,23,0.3);}
+.msave{width:100%;padding:12px;background:linear-gradient(135deg, var(--accent), #d39e00);border:none;color:white;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:1.25rem;transition:all .3s;box-shadow:0 4px 15px rgba(230,168,23,0.3);}
 .msave:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(230,168,23,0.5);}
 .mcancel{width:100%;padding:10px;background:none;border:none;color:var(--muted);font-size:.8rem;cursor:pointer;margin-top:4px;transition:color .2s;font-weight:500;}
 .mcancel:hover{color:var(--text);}
@@ -653,7 +653,11 @@ function goPanel(p){
   document.getElementById('p'+p).classList.add('on');
   document.getElementById('nl-'+p).classList.add('on');
   document.getElementById('filters-wrap').style.display = (p==='d' || p==='w') ? 'flex' : 'none';
-  if(p==='s'){if(S.stab==='soon')loadUpcoming();}
+  if(p==='s'){
+    const v=document.getElementById('si').value.trim();
+    if(v) doSearch(v);
+    else if(S.stab==='soon') loadUpcoming();
+  }
   if(p==='st')renderStats();
   if(p==='w')renderWL();
 }
@@ -693,20 +697,29 @@ window.setSTab=function(el,t){
   document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
   S.stab=t;
-  if(t==='soon'){
-    document.getElementById('scl').style.display='none';
-    loadUpcoming();
-  }else{
-    const v=document.getElementById('si').value.trim();
-    if(v) doSearch(v);
-    else {
+  const v=document.getElementById('si').value.trim();
+  if(v){
+    doSearch(v);
+  } else {
+    if(t==='soon'){
+      document.getElementById('scl').style.display='none';
+      loadUpcoming();
+    } else {
       document.getElementById('scl').style.display='none';
       document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';
     }
   }
 };
 
-window.clrSearch=function(){document.getElementById('si').value='';document.getElementById('scl').style.display='none';document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';};
+window.clrSearch=function(){
+  document.getElementById('si').value='';
+  document.getElementById('scl').style.display='none';
+  if(S.stab==='soon'){
+    loadUpcoming();
+  } else {
+    document.getElementById('sr').innerHTML='<div class="hint">Search for a movie or series.</div>';
+  }
+};
 
 function ml(){return S.lists[S.prof?.id]||[];}
 function isRel(m){if(!m.releaseDate)return true;const d=new Date(m.releaseDate);if(isNaN(d.getTime()))return true;return d<=new Date();}
@@ -1007,14 +1020,17 @@ function renderStats(){
 
 let sti;
 window.onInp=function(val){
-  clearTimeout(sti);document.getElementById('scl').style.display=val?'block':'none';
-  if(S.stab==='soon') {
-      document.querySelectorAll('.stab').forEach(c=>c.classList.remove('on'));
-      document.querySelector('.stab').classList.add('on'); 
-      S.stab='all';
+  clearTimeout(sti);
+  document.getElementById('scl').style.display=val?'block':'none';
+  const r=document.getElementById('sr');
+  if(!val.trim()){
+    if(S.stab==='soon'){
+      loadUpcoming();
+    } else {
+      r.innerHTML='<div class="hint">Search for a movie or series.</div>';
+    }
+    return;
   }
-  const r = document.getElementById('sr');
-  if(!val.trim()){r.innerHTML='<div class="hint">Search for a movie or series.</div>';return;}
   r.innerHTML='<div class="spin">Searching</div>';
   sti=setTimeout(()=>doSearch(val),500);
 };
@@ -1028,10 +1044,36 @@ async function doSearch(q){
   const r=document.getElementById('sr');
   try{
     const tab=S.stab;let res=[];
-    if(tab==='all'||tab==='movie'){const d=await tmdb(`/search/movie?query=${encodeURIComponent(q)}&page=1&include_adult=false`);res.push(...(d.results||[]).slice(0,7).map(m=>({...m,mt:'movie'})));}
-    if(tab==='all'||tab==='tv'){const d=await tmdb(`/search/tv?query=${encodeURIComponent(q)}&page=1`);res.push(...(d.results||[]).slice(0,7).map(m=>({...m,mt:'tv'})));}
-    res.sort((a,b)=>(b.popularity||0)-(a.popularity||0));if(tab==='all')res=res.slice(0,12);
-    renderRes(res,false);
+    const todayStr = new Date().toISOString().split('T')[0];
+    
+    if(tab==='all'||tab==='movie'||tab==='soon'){
+      const d=await tmdb(`/search/movie?query=${encodeURIComponent(q)}&page=1&include_adult=false`);
+      let movies=(d.results||[]).map(m=>({...m,mt:'movie'}));
+      if(tab==='soon'){
+        movies = movies.filter(m => m.release_date && m.release_date >= todayStr);
+      } else if(tab==='movie'){
+        movies = movies.slice(0, 15);
+      } else {
+        movies = movies.slice(0, 7);
+      }
+      res.push(...movies);
+    }
+    if(tab==='all'||tab==='tv'||tab==='soon'){
+      const d=await tmdb(`/search/tv?query=${encodeURIComponent(q)}&page=1`);
+      let shows=(d.results||[]).map(m=>({...m,mt:'tv'}));
+      if(tab==='soon'){
+        shows = shows.filter(m => m.first_air_date && m.first_air_date >= todayStr);
+      } else if(tab==='tv'){
+        shows = shows.slice(0, 15);
+      } else {
+        shows = shows.slice(0, 7);
+      }
+      res.push(...shows);
+    }
+    res.sort((a,b)=>(b.popularity||0)-(a.popularity||0));
+    if(tab==='all')res=res.slice(0,12);
+    if(tab==='soon')res=res.slice(0,15);
+    renderRes(res,tab==='soon');
   }catch(e){r.innerHTML=e.message.includes('401')?'<div class="hint" style="color:var(--red)">Invalid API Key.</div>':'<div class="hint" style="color:var(--red)">Error loading.</div>';}
 }
 
@@ -1049,14 +1091,16 @@ function renderRes(items,upcoming){
   const r=document.getElementById('sr');
   if(!items.length){r.innerHTML='<div class="hint">No results found.</div>';return;}
   const wl=ml();
+  const todayStr=new Date().toISOString().split('T')[0];
   r.innerHTML=items.map(item=>{
     const id=item.mt+'_'+item.id,inList=wl.some(w=>w.id===id);
     const title=item.title||item.name||'Unknown',raw=item.release_date||item.first_air_date||'';
     const yr=raw.slice(0,4),rat=item.vote_average>0?item.vote_average.toFixed(1):null;
     const gIds=item.genre_ids||[],gN=gIds.slice(0,2).map(gid=>{const g=GS.find(x=>x.id===gid);return g?g.n:'';}).filter(Boolean);
     const ph=item.mt==='movie'?'🎬':'📺',k='r_'+Math.random().toString(36).slice(2);
-    window[k]=JSON.stringify({id,mediaType:item.mt,type:item.mt==='movie'?'movie':'tv',title,poster:item.poster_path||null,overview:item.overview||'',rating:rat,genres:gIds,genreNames:gN,releaseDate:raw,upcoming:!!upcoming,status:'to_watch',originCountry:item.origin_country||[],originalLanguage:item.original_language||''});
-    return `<div class="rrow"><div class="rri">${item.poster_path?`<img src="${IMS}${item.poster_path}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`}</div><div style="flex:1;min-width:0"><div class="rrt">${title}</div><div class="rrs">${item.mt==='movie'?'Movie':'Series'}${yr?' · '+yr:''}${rat?' · ⭐'+rat:''} · ${gN.join(', ')}${upcoming&&raw?` · <span style="color:var(--green)">🔜 ${raw}</span>`:''}</div></div><button class="addbtn ${inList?'in':''}" onclick="addItem(window['${k}'])" ${inList?'disabled':''}>${inList?'✓ Added':'+ Add'}</button></div>`;
+    const isUpcoming = upcoming || (raw && raw >= todayStr);
+    window[k]=JSON.stringify({id,mediaType:item.mt,type:item.mt==='movie'?'movie':'tv',title,poster:item.poster_path||null,overview:item.overview||'',rating:rat,genres:gIds,genreNames:gN,releaseDate:raw,upcoming:!!isUpcoming,status:'to_watch',originCountry:item.origin_country||[],originalLanguage:item.original_language||''});
+    return `<div class="rrow"><div class="rri">${item.poster_path?`<img src="${IMS}${item.poster_path}" onerror="this.parentElement.innerHTML='${ph}'">`:`${ph}`}</div><div style="flex:1;min-width:0"><div class="rrt">${title}</div><div class="rrs">${item.mt==='movie'?'Movie':'Series'}${yr?' · '+yr:''}${rat?' · ⭐'+rat:''} · ${gN.join(', ')}${isUpcoming&&raw?` · <span style="color:var(--green)">🔜 ${raw}</span>`:''}</div></div><button class="addbtn ${inList?'in':''}" onclick="addItem(window['${k}'])" ${inList?'disabled':''}>${inList?'✓ Added':'+ Add'}</button></div>`;
   }).join('');
 }
 
